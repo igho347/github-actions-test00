@@ -1,0 +1,31 @@
+name: Lint Code Base
+
+on:
+  push:
+    branches:
+      - main  # Run on pushes to the main branch
+  pull_request:
+    branches:
+      - main  # Run on pull requests to the main branch
+
+jobs:
+  lint:
+    name: Lint Code Base
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      # Step 2: Run Super-Linter
+      - name: Run Super-Linter
+        uses: github/super-linter@v5
+        env:
+          VALIDATE_ALL_CODEBASE: true          # Validate the entire codebase
+          VALIDATE_PYTHON: true                # Enable Python linting
+          VALIDATE_JAVASCRIPT: true            # Enable JavaScript linting
+          VALIDATE_YAML: true                  # Enable YAML linting
+          VALIDATE_MARKDOWN: true              # Enable Markdown linting
+          VALIDATE_JSON: true                  # Enable JSON linting
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Required to use GitHub's API
